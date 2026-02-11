@@ -3613,12 +3613,107 @@
 			)
 			(embedded_fonts no)
 		)
-	)
-	(junction
-		(at 193.04 78.74)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "008c6e88-cfd7-42a6-8297-3fdf05693ef1")
+		(symbol "power:PWR_FLAG"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(junction
 		(at 273.05 88.9)
@@ -3747,6 +3842,12 @@
 		(uuid "7baf0227-9b88-407c-a732-c22bf791541b")
 	)
 	(junction
+		(at 27.94 38.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "93c87854-a6e6-44a2-acb6-fa644de7119c")
+	)
+	(junction
 		(at 227.33 142.24)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3757,6 +3858,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a71e30e3-0887-408f-ab65-a37a3c0c5916")
+	)
+	(junction
+		(at 88.9 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ac8f96bc-6ea7-470b-8a9f-0b36f797968e")
 	)
 	(junction
 		(at 22.86 38.1)
@@ -3783,6 +3890,12 @@
 		(uuid "c389e5ad-e014-4228-bfa9-fd0061ca7450")
 	)
 	(junction
+		(at 27.94 46.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c8ee3e2c-8056-43e4-808a-6efd4939443e")
+	)
+	(junction
 		(at 123.19 77.47)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3805,6 +3918,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e1591cff-26d7-4257-b9f3-4281e254eba0")
+	)
+	(junction
+		(at 193.04 78.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e2e607b1-567f-41aa-83f9-2dda6294ad3b")
 	)
 	(junction
 		(at 55.88 46.99)
@@ -3946,7 +4065,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 46.99) (xy 33.02 46.99)
+			(xy 22.86 46.99) (xy 27.94 46.99)
 		)
 		(stroke
 			(width 0)
@@ -4176,7 +4295,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 38.1) (xy 33.02 38.1)
+			(xy 22.86 38.1) (xy 27.94 38.1)
 		)
 		(stroke
 			(width 0)
@@ -4676,6 +4795,16 @@
 	)
 	(wire
 		(pts
+			(xy 88.9 35.56) (xy 93.98 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8772a18a-cd31-4fd5-855e-bd346d094fc6")
+	)
+	(wire
+		(pts
 			(xy 181.61 147.32) (xy 187.96 147.32)
 		)
 		(stroke
@@ -4723,6 +4852,16 @@
 			(type default)
 		)
 		(uuid "8a8db3e3-536c-4435-b37f-ebfb60a15626")
+	)
+	(wire
+		(pts
+			(xy 27.94 46.99) (xy 33.02 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8aa91930-c5e9-4592-af2c-3a834ea935fd")
 	)
 	(wire
 		(pts
@@ -4863,16 +5002,6 @@
 			(type default)
 		)
 		(uuid "9dabd2a7-6176-4aa7-84bd-08455e78082c")
-	)
-	(wire
-		(pts
-			(xy 121.92 71.12) (xy 123.19 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9f4b0f05-d384-49a6-a38d-1aaaeeb641b9")
 	)
 	(wire
 		(pts
@@ -5106,7 +5235,7 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 35.56) (xy 93.98 35.56)
+			(xy 82.55 35.56) (xy 88.9 35.56)
 		)
 		(stroke
 			(width 0)
@@ -5206,6 +5335,16 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 78.74) (xy 193.04 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d86ed9be-5b7a-40e3-ac54-2256df276c6b")
+	)
+	(wire
+		(pts
 			(xy 241.3 38.1) (xy 248.92 38.1)
 		)
 		(stroke
@@ -5233,6 +5372,16 @@
 			(type default)
 		)
 		(uuid "dc7f0406-0b9f-4d22-b16d-f42a716a35d1")
+	)
+	(wire
+		(pts
+			(xy 27.94 38.1) (xy 33.02 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de70e95c-b681-46c0-8afc-4ca48974a47a")
 	)
 	(wire
 		(pts
@@ -6069,25 +6218,24 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "0bc1b508-c1a3-4bab-859c-68c50295b740")
 		(property "Reference" "J3"
-			(at 170.815 31.75 0)
+			(at 176.022 31.242 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "Conn_01x02_Pin"
-			(at 170.815 34.29 0)
+		(property "Value" "3.3V Power"
+			(at 176.022 33.782 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 170.18 36.83 0)
 			(effects
 				(font
@@ -6154,7 +6302,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 63.5 0)
 			(effects
 				(font
@@ -6230,7 +6378,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 65.278 90)
 			(effects
 				(font
@@ -6364,7 +6512,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical"
 			(at 176.53 142.24 0)
 			(effects
 				(font
@@ -6446,7 +6594,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 56.8452 46.99 0)
 			(effects
 				(font
@@ -6694,7 +6842,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 193.04 78.74 0)
+		(at 193.04 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6703,7 +6851,7 @@
 		(fields_autoplaced yes)
 		(uuid "2f48566a-75e5-40eb-a809-071f4c6a402d")
 		(property "Reference" "#PWR02"
-			(at 193.04 85.09 0)
+			(at 193.04 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6712,7 +6860,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 193.04 83.82 0)
+			(at 193.04 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6720,7 +6868,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 193.04 78.74 0)
+			(at 193.04 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6729,7 +6877,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 193.04 78.74 0)
+			(at 193.04 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6738,7 +6886,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 193.04 78.74 0)
+			(at 193.04 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6783,7 +6931,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 47.498 90)
 			(effects
 				(font
@@ -6850,7 +6998,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 56.388 90)
 			(effects
 				(font
@@ -6917,7 +7065,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 39.878 90)
 			(effects
 				(font
@@ -6984,7 +7132,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 30.988 90)
 			(effects
 				(font
@@ -7118,7 +7266,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 74.168 90)
 			(effects
 				(font
@@ -7253,7 +7401,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 72.39 0)
 			(effects
 				(font
@@ -7329,7 +7477,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 38.1 0)
 			(effects
 				(font
@@ -7405,7 +7553,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 80.01 0)
 			(effects
 				(font
@@ -7451,6 +7599,72 @@
 			(project "pcb"
 				(path "/705a3ff3-c4a0-4aab-a242-759df16d5498"
 					(reference "D8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 88.9 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "59f60db6-ee41-4ab1-9f96-6513876e10c5")
+		(property "Reference" "#FLG02"
+			(at 88.9 33.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 88.9 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 88.9 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 88.9 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5efa7bc8-f7a4-48e7-a2e1-a3d0138cdc60")
+		)
+		(instances
+			(project ""
+				(path "/705a3ff3-c4a0-4aab-a242-759df16d5498"
+					(reference "#FLG02")
 					(unit 1)
 				)
 			)
@@ -7531,25 +7745,24 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6083486e-048b-4930-b8c4-d9926bebbe4f")
 		(property "Reference" "J7"
-			(at 198.755 31.75 0)
+			(at 202.946 30.988 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "Conn_01x02_Pin"
-			(at 198.755 34.29 0)
+		(property "Value" "5V Power"
+			(at 202.946 33.528 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 198.12 36.83 0)
 			(effects
 				(font
@@ -7750,7 +7963,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 45.72 0)
 			(effects
 				(font
@@ -7828,7 +8041,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 194.0052 78.74 0)
 			(effects
 				(font
@@ -7962,7 +8175,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 81.788 90)
 			(effects
 				(font
@@ -8029,7 +8242,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 262.89 90.678 90)
 			(effects
 				(font
@@ -8166,7 +8379,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 181.3052 78.74 0)
 			(effects
 				(font
@@ -8234,7 +8447,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 222.25 145.288 90)
 			(effects
 				(font
@@ -8302,7 +8515,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPDT_PCM12"
 			(at 76.2 35.56 0)
 			(effects
 				(font
@@ -8372,7 +8585,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_PTS647_Sx38"
 			(at 49.53 99.06 0)
 			(effects
 				(font
@@ -8442,7 +8655,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 168.6052 78.74 0)
 			(effects
 				(font
@@ -8509,7 +8722,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical"
 			(at 208.28 118.11 0)
 			(effects
 				(font
@@ -8650,7 +8863,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 143.2052 78.74 0)
 			(effects
 				(font
@@ -8717,7 +8930,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical"
 			(at 176.53 119.38 0)
 			(effects
 				(font
@@ -9005,7 +9218,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 155.9052 78.74 0)
 			(effects
 				(font
@@ -9339,7 +9552,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 53.34 155.2448 0)
 			(effects
 				(font
@@ -9409,7 +9622,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 130.5052 78.74 0)
 			(effects
 				(font
@@ -9452,6 +9665,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 27.94 46.99 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "adc06956-3719-48ce-938a-f5c666718919")
+		(property "Reference" "#FLG03"
+			(at 27.94 48.895 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 27.94 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 27.94 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 27.94 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 27.94 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2ddea96f-1ebe-4dea-aa7e-2c444b20cbf4")
+		)
+		(instances
+			(project ""
+				(path "/705a3ff3-c4a0-4aab-a242-759df16d5498"
+					(reference "#FLG03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 22.86 43.18 0)
 		(unit 1)
@@ -9478,7 +9757,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 23.8252 46.99 0)
 			(effects
 				(font
@@ -9596,25 +9875,24 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "b27b651f-801d-48d3-b4e2-7c94bd675dae")
 		(property "Reference" "J2"
-			(at 168.275 41.91 0)
+			(at 175.514 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "Conn_01x02_Pin"
-			(at 168.275 44.45 0)
+		(property "Value" "3.3V Power"
+			(at 175.514 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 167.64 46.99 0)
 			(effects
 				(font
@@ -9682,7 +9960,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 222.25 142.748 90)
 			(effects
 				(font
@@ -9816,7 +10094,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 86.36 41.148 90)
 			(effects
 				(font
@@ -9884,7 +10162,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 62.23 128.778 90)
 			(effects
 				(font
@@ -10086,7 +10364,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 54.61 95.5548 0)
 			(effects
 				(font
@@ -10262,6 +10540,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 27.94 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ca38447c-c9bc-4836-a192-9da510d48e59")
+		(property "Reference" "#FLG01"
+			(at 27.94 36.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 27.94 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 27.94 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 27.94 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 27.94 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "172da034-fd2b-4b5a-a60b-de51e06bc183")
+		)
+		(instances
+			(project ""
+				(path "/705a3ff3-c4a0-4aab-a242-759df16d5498"
+					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 118.11 163.83 0)
 		(unit 1)
@@ -10421,7 +10765,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 67.0052 46.99 0)
 			(effects
 				(font
@@ -10488,7 +10832,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 53.34 143.8148 0)
 			(effects
 				(font
@@ -10555,7 +10899,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 54.61 0)
 			(effects
 				(font
@@ -10631,7 +10975,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 88.9 0)
 			(effects
 				(font
@@ -10690,25 +11034,24 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e05af69a-d817-49c4-bb5c-0c316d14cbeb")
 		(property "Reference" "J6"
-			(at 196.215 41.91 0)
+			(at 202.184 41.656 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "Conn_01x02_Pin"
-			(at 196.215 44.45 0)
+		(property "Value" "5V Power"
+			(at 202.184 44.196 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 195.58 46.99 0)
 			(effects
 				(font
@@ -10778,7 +11121,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Crystal:Crystal_SMD_HC49-SD"
 			(at 59.69 149.86 0)
 			(effects
 				(font
@@ -10895,25 +11238,24 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e400da10-cd0e-4d22-b085-eb9f18d2cedd")
 		(property "Reference" "J1"
-			(at 140.335 31.75 0)
+			(at 145.034 30.988 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "Conn_01x03_Pin"
-			(at 140.335 34.29 0)
+		(property "Value" "GPIO"
+			(at 145.034 33.528 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
 			(at 139.7 39.37 0)
 			(effects
 				(font
@@ -10986,7 +11328,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 33.9852 46.99 0)
 			(effects
 				(font
@@ -11054,7 +11396,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPDT_PCM12"
 			(at 50.8 127 0)
 			(effects
 				(font
@@ -11126,7 +11468,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical"
 			(at 207.01 140.97 0)
 			(effects
 				(font
@@ -11202,7 +11544,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 95.25 39.37 0)
 			(effects
 				(font
@@ -11345,7 +11687,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 			(at 252.73 29.21 0)
 			(effects
 				(font
