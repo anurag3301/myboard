@@ -57,3 +57,5 @@ dkms.conf
 */.cache
 pcb-backups/
 .history/
+*.lck
+\#auto_saved_files\#
