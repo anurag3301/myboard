@@ -59,3 +59,5 @@ pcb-backups/
 .history/
 *.lck
 \#auto_saved_files\#
+*.zip
+pcb/gerber/
