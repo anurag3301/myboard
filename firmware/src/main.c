@@ -11,7 +11,6 @@ void setup_uart();
 
 
 int main(){
-    char buf[2] = {'a', '\0'};
     HAL_Init();
     SystemClock_Config();
     enable_gpio();
@@ -19,10 +18,10 @@ int main(){
     setup_uart();
     while(1){
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-        HAL_UART_Transmit(&huart, &buf, 1, HAL_MAX_DELAY);
+        printf("ON\n\r");
         HAL_Delay(1000);
-        HAL_UART_Transmit(&huart, &buf, 1, HAL_MAX_DELAY);
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+        printf("OFF\n\r");
         HAL_Delay(1000);
     }
 }
@@ -60,4 +59,10 @@ void setup_uart(){
     if (HAL_UART_Init(&huart) != HAL_OK){
         Error_Handler();
     }
+}
+
+int _write(int file, char *ptr, int len)
+{
+    HAL_UART_Transmit(&huart, (uint8_t*)ptr, len, HAL_MAX_DELAY);
+    return len;
 }
