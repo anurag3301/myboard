@@ -36,16 +36,19 @@ void setup_gpio(){
 
 void setup_uart(){
     __HAL_RCC_USART1_CLK_ENABLE();
+    __HAL_RCC_AFIO_CLK_ENABLE();
 
     GPIO_InitTypeDef gpio_init = {0};
-    gpio_init.Pin = GPIO_PIN_9;
+    gpio_init.Pin = GPIO_PIN_6;
     gpio_init.Mode = GPIO_MODE_AF_PP;
     gpio_init.Speed = GPIO_SPEED_FREQ_HIGH;
-    HAL_GPIO_Init(GPIOA, &gpio_init);
-    gpio_init.Pin = GPIO_PIN_10;
+    HAL_GPIO_Init(GPIOB, &gpio_init);
+    gpio_init.Pin = GPIO_PIN_7;
     gpio_init.Mode = GPIO_MODE_INPUT;
     gpio_init.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &gpio_init);
+    HAL_GPIO_Init(GPIOB, &gpio_init);
+
+    __HAL_AFIO_REMAP_USART1_ENABLE();
 
     huart.Instance = USART1;
     huart.Init = (UART_InitTypeDef){
