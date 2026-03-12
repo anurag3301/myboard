@@ -634,7 +634,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "",
+    "page_layout_descr_file": "STM32F103 Demo",
     "plot_directory": "",
     "reuse_designators": true,
     "space_save_all_events": true,

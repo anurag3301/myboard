@@ -61,3 +61,5 @@ pcb-backups/
 \#auto_saved_files\#
 *.zip
 pcb/gerber/
+
+.vscode
