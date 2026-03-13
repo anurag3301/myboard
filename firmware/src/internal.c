@@ -1,6 +1,7 @@
 #include "main.h"
 
 extern UART_HandleTypeDef huart;
+extern I2C_HandleTypeDef hi2c;
 
 void enable_gpio(void){
     __HAL_RCC_GPIOA_CLK_ENABLE();
