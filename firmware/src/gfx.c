@@ -1,11 +1,38 @@
 #include "gfx.h"
+#include "bitmaps.h"
 
 #include <string.h>
+
+#define GFX_CHAR_MAX_BITMAP_BYTES 512U
 
 static size_t gfx_bitmap_required_size(const GFX_Bitmap *bitmap)
 {
     size_t row_bytes = ((size_t)bitmap->width + 7U) / 8U;
     return row_bytes * (size_t)bitmap->height;
+}
+
+static uint8_t gfx_bitmap_get_pixel(const GFX_Bitmap *bitmap, uint16_t x, uint16_t y)
+{
+    size_t row_bytes = ((size_t)bitmap->width + 7U) / 8U;
+    size_t index = (size_t)y * row_bytes + ((size_t)x / 8U);
+    uint8_t mask = (uint8_t)(0x80U >> (x % 8U));
+    return (bitmap->data[index] & mask) ? 1U : 0U;
+}
+
+static void gfx_bitmap_set_pixel(uint8_t *buffer, uint16_t width, uint16_t x, uint16_t y, uint8_t value)
+{
+    size_t row_bytes = ((size_t)width + 7U) / 8U;
+    size_t index = (size_t)y * row_bytes + ((size_t)x / 8U);
+    uint8_t mask = (uint8_t)(0x80U >> (x % 8U));
+
+    if (value != 0U)
+    {
+        buffer[index] |= mask;
+    }
+    else
+    {
+        buffer[index] &= (uint8_t)(~mask);
+    }
 }
 
 size_t GFX_CalcBufferSize(uint16_t width, uint16_t height)
@@ -163,6 +190,106 @@ void GFX_DrawBitmap(GFX_Framebuffer *fb, const GFX_Bitmap *bitmap, int16_t x, in
             GFX_DrawPixel(fb, (int16_t)(x + (int16_t)bx), (int16_t)(y + (int16_t)by), pixel_on);
         }
     }
+}
+
+int32_t GFX_ResizeBitmapKeepAspect(const GFX_Bitmap *src,
+                                   uint16_t target_height,
+                                   uint8_t *dst_buffer,
+                                   size_t dst_buffer_size,
+                                   GFX_Bitmap *out_bitmap)
+{
+    if ((src == NULL) || (src->data == NULL) || (dst_buffer == NULL) || (out_bitmap == NULL))
+    {
+        return -1;
+    }
+
+    if ((src->width == 0U) || (src->height == 0U) || (target_height == 0U))
+    {
+        return -1;
+    }
+
+    if (src->size < gfx_bitmap_required_size(src))
+    {
+        return -1;
+    }
+
+    uint16_t target_width = (uint16_t)(((uint32_t)src->width * (uint32_t)target_height + ((uint32_t)src->height / 2U)) / (uint32_t)src->height);
+    if (target_width == 0U)
+    {
+        target_width = 1U;
+    }
+
+    size_t row_bytes = ((size_t)target_width + 7U) / 8U;
+    size_t required_size = row_bytes * (size_t)target_height;
+    if (dst_buffer_size < required_size)
+    {
+        return -1;
+    }
+
+    memset(dst_buffer, 0, required_size);
+
+    for (uint16_t y = 0U; y < target_height; y++)
+    {
+        uint16_t src_y = (uint16_t)(((uint32_t)y * (uint32_t)src->height) / (uint32_t)target_height);
+        if (src_y >= src->height)
+        {
+            src_y = (uint16_t)(src->height - 1U);
+        }
+
+        for (uint16_t x = 0U; x < target_width; x++)
+        {
+            uint16_t src_x = (uint16_t)(((uint32_t)x * (uint32_t)src->width) / (uint32_t)target_width);
+            if (src_x >= src->width)
+            {
+                src_x = (uint16_t)(src->width - 1U);
+            }
+
+            gfx_bitmap_set_pixel(dst_buffer, target_width, x, y, gfx_bitmap_get_pixel(src, src_x, src_y));
+        }
+    }
+
+    out_bitmap->data = dst_buffer;
+    out_bitmap->size = required_size;
+    out_bitmap->width = target_width;
+    out_bitmap->height = target_height;
+    return 0;
+}
+
+int32_t GFX_DrawChar(GFX_Framebuffer *fb, char ch, int16_t x, int16_t y, uint16_t target_height, uint8_t color)
+{
+    const GFX_Bitmap *glyph = Bitmap_GetGlyph(ch);
+    GFX_Bitmap src;
+    GFX_Bitmap draw_bitmap;
+    uint8_t scaled_buffer[GFX_CHAR_MAX_BITMAP_BYTES];
+
+    if ((GFX_IsReady(fb) == 0U) || (glyph == NULL))
+    {
+        return -1;
+    }
+
+    src = *glyph;
+    draw_bitmap = src;
+
+    if ((target_height != 0U) && (target_height != src.height))
+    {
+        if (GFX_ResizeBitmapKeepAspect(&src, target_height, scaled_buffer, sizeof(scaled_buffer), &draw_bitmap) != 0)
+        {
+            return -1;
+        }
+    }
+
+    for (uint16_t py = 0U; py < draw_bitmap.height; py++)
+    {
+        for (uint16_t px = 0U; px < draw_bitmap.width; px++)
+        {
+            if (gfx_bitmap_get_pixel(&draw_bitmap, px, py) != 0U)
+            {
+                GFX_DrawPixel(fb, (int16_t)(x + (int16_t)px), (int16_t)(y + (int16_t)py), color);
+            }
+        }
+    }
+
+    return 0;
 }
 
 int32_t GFX_Present(const GFX_Framebuffer *fb)

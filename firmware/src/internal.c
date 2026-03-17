@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 extern UART_HandleTypeDef huart;
 extern I2C_HandleTypeDef hi2c;

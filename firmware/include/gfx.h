@@ -64,6 +64,23 @@ void GFX_DrawRectBorder(GFX_Framebuffer *fb,
  */
 void GFX_DrawBitmap(GFX_Framebuffer *fb, const GFX_Bitmap *bitmap, int16_t x, int16_t y);
 
+/*
+ * Resizes 1bpp row-major bitmap with nearest-neighbor while preserving aspect ratio.
+ * target_height defines output size; output width is computed automatically.
+ * out_bitmap points to dst_buffer on success.
+ */
+int32_t GFX_ResizeBitmapKeepAspect(const GFX_Bitmap *src,
+                                   uint16_t target_height,
+                                   uint8_t *dst_buffer,
+                                   size_t dst_buffer_size,
+                                   GFX_Bitmap *out_bitmap);
+
+/*
+ * Draw a single glyph (A-Z, 0-9) using the font bitmap set from bitmaps.h.
+ * target_height == 0 draws at native font size.
+ */
+int32_t GFX_DrawChar(GFX_Framebuffer *fb, char ch, int16_t x, int16_t y, uint16_t target_height, uint8_t color);
+
 int32_t GFX_Present(const GFX_Framebuffer *fb);
 
 #ifdef __cplusplus

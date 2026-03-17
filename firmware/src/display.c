@@ -27,7 +27,7 @@ static int32_t oled_send_i2c(void *user_context, uint8_t i2c_address_7bit,
 }
 
 
-void dispaly_init(){
+void display_init(void){
     oled = (OLED_Config){
         .bus_type = OLED_BUS_I2C,
         .width = APP_OLED_WIDTH,
@@ -52,4 +52,3 @@ void dispaly_init(){
         Error_Handler();
     }
 }
-
