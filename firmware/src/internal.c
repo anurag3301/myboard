@@ -58,10 +58,14 @@ void SystemClock_Config(void){
 
 
 void setup_gpio(){
-    GPIO_InitTypeDef init = {.Pin = GPIO_PIN_13, .Mode = GPIO_MODE_OUTPUT_PP,
-                             .Pull = GPIO_NOPULL, .Speed = GPIO_SPEED_FREQ_LOW};
+    GPIO_InitTypeDef init = {.Pin = GPIO_PIN_13 | GPIO_PIN_14,
+                             .Mode = GPIO_MODE_IT_FALLING,
+                             .Pull = GPIO_PULLUP,
+                             .Speed = GPIO_SPEED_FREQ_LOW};
     HAL_GPIO_Init(GPIOC, &init);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+    HAL_NVIC_SetPriority(EXTI15_10_IRQn, 2, 0);
+    HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 void setup_i2c(){
