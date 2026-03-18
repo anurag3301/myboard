@@ -3,6 +3,7 @@
 
 extern UART_HandleTypeDef huart;
 extern I2C_HandleTypeDef hi2c;
+extern SPI_HandleTypeDef hspi;
 
 void enable_gpio(void){
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -13,10 +14,7 @@ void enable_gpio(void){
 
 void Error_Handler(void){
   __disable_irq();
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
-  while (1)
-  {
-  }
+  while (1){}
 }
 
 void SystemClock_Config(void){
@@ -131,6 +129,44 @@ void setup_uart(){
     if (HAL_UART_Init(&huart) != HAL_OK){
         Error_Handler();
     }
+}
+
+
+void setup_spi(){
+    __HAL_RCC_SPI2_CLK_ENABLE();
+    /**SPI2 GPIO Configuration
+    PB13     ------> SPI2_SCK
+    PB14     ------> SPI2_MISO
+    PB15     ------> SPI2_MOSI
+    */
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_15;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_14;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    hspi.Instance = SPI2;
+    hspi.Init.Mode = SPI_MODE_MASTER;
+    hspi.Init.Direction = SPI_DIRECTION_2LINES;
+    hspi.Init.DataSize = SPI_DATASIZE_8BIT;
+    hspi.Init.CLKPolarity = SPI_POLARITY_LOW;
+    hspi.Init.CLKPhase = SPI_PHASE_1EDGE;
+    hspi.Init.NSS = SPI_NSS_SOFT;
+    hspi.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+    hspi.Init.FirstBit = SPI_FIRSTBIT_MSB;
+    hspi.Init.TIMode = SPI_TIMODE_DISABLE;
+    hspi.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+    hspi.Init.CRCPolynomial = 10;
+    if (HAL_SPI_Init(&hspi) != HAL_OK){
+        Error_Handler();
+    }
+
 }
 
 int _write(int file, char *ptr, int len)

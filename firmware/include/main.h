@@ -7,3 +7,4 @@ void setup_gpio();
 void setup_uart();
 void setup_i2c();
 void i2c_scan();
+void setup_spi();

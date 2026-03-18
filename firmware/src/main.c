@@ -8,6 +8,7 @@
 
 UART_HandleTypeDef huart;
 I2C_HandleTypeDef hi2c;
+SPI_HandleTypeDef hspi;
 OLED_Config oled;
 GFX_Framebuffer gfx;
 
@@ -21,6 +22,7 @@ int main(){
     setup_gpio();
     setup_uart();
     setup_i2c();
+    setup_spi();
     display_init();
 
     static const uint8_t hi_bitmap_data[] = {
