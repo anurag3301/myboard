@@ -54,6 +54,6 @@ int main(){
             Error_Handler();
         }
 
-        HAL_Delay(10);
+        HAL_Delay(100);
     }
 }
