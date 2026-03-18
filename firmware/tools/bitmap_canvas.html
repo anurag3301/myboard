@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bitmap Canvas Exporter</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --ink: #111827;
+      --muted: #6b7280;
+      --line: #d1d5db;
+      --accent: #0f766e;
+      --pixel-off: #ffffff;
+      --pixel-on: #111827;
+      --grid: #d1d5db;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #eef2f7, #f8fafc);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px 24px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+      margin-bottom: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-size: 12px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    select,
+    button,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: #0d6861;
+    }
+
+    .canvas-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+      background: #fff;
+      min-height: 320px;
+    }
+
+    #bitmapCanvas {
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      cursor: crosshair;
+      touch-action: none;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 240px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      margin-top: 8px;
+    }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 18px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <h1>Bitmap Canvas Exporter</h1>
+      <div class="grid">
+        <div>
+          <label for="widthInput">Width (px)</label>
+          <input id="widthInput" type="number" min="1" max="256" value="16" />
+        </div>
+        <div>
+          <label for="heightInput">Height (px)</label>
+          <input id="heightInput" type="number" min="1" max="256" value="16" />
+        </div>
+        <div>
+          <label for="pixelSizeInput">Zoom (screen px)</label>
+          <input id="pixelSizeInput" type="number" min="8" max="40" value="20" />
+        </div>
+        <div>
+          <label for="nameInput">Array Name</label>
+          <input id="nameInput" type="text" value="MY_BITMAP" />
+        </div>
+        <div>
+          <label for="formatSelect">Export Format</label>
+          <select id="formatSelect">
+            <option value="row-major-msb">Row-major MSB (for GFX_Bitmap)</option>
+            <option value="ssd1306-page">SSD1306 page format</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button id="resizeBtn">Apply Size</button>
+        <button id="clearBtn">Clear</button>
+      </div>
+      <div class="btn-row">
+        <button id="invertBtn">Invert</button>
+        <button id="fillBtn">Fill</button>
+      </div>
+      <p class="muted">Left click/drag: draw. Right click/drag: erase.</p>
+    </section>
+
+    <section class="card">
+      <div class="canvas-wrap">
+        <canvas id="bitmapCanvas" width="320" height="320"></canvas>
+      </div>
+      <div class="btn-row" style="margin-top:10px;">
+        <button id="exportBtn" class="btn-accent">Export C Array</button>
+        <button id="copyBtn">Copy Output</button>
+      </div>
+      <textarea id="output" placeholder="Exported C array appears here"></textarea>
+      <div id="status" class="status"></div>
+    </section>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bitmapCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const widthInput = document.getElementById('widthInput');
+    const heightInput = document.getElementById('heightInput');
+    const pixelSizeInput = document.getElementById('pixelSizeInput');
+    const nameInput = document.getElementById('nameInput');
+    const formatSelect = document.getElementById('formatSelect');
+
+    const resizeBtn = document.getElementById('resizeBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const invertBtn = document.getElementById('invertBtn');
+    const fillBtn = document.getElementById('fillBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const output = document.getElementById('output');
+    const statusEl = document.getElementById('status');
+
+    let bmpWidth = 16;
+    let bmpHeight = 16;
+    let pixelSize = 20;
+    let pixels = [];
+    let isDrawing = false;
+    let drawValue = 1;
+
+    function setStatus(text) {
+      statusEl.textContent = text;
+    }
+
+    function createPixels(w, h, fill = 0) {
+      const arr = new Array(h);
+      for (let y = 0; y < h; y++) {
+        arr[y] = new Array(w).fill(fill);
+      }
+      return arr;
+    }
+
+    function clampInt(value, min, max, fallback) {
+      const n = Number.parseInt(value, 10);
+      if (Number.isNaN(n)) return fallback;
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function applySize(keepOld = true) {
+      const newW = clampInt(widthInput.value, 1, 256, bmpWidth);
+      const newH = clampInt(heightInput.value, 1, 256, bmpHeight);
+      const newP = clampInt(pixelSizeInput.value, 8, 40, pixelSize);
+
+      const next = createPixels(newW, newH, 0);
+      if (keepOld) {
+        const copyW = Math.min(newW, bmpWidth);
+        const copyH = Math.min(newH, bmpHeight);
+        for (let y = 0; y < copyH; y++) {
+          for (let x = 0; x < copyW; x++) {
+            next[y][x] = pixels[y]?.[x] ? 1 : 0;
+          }
+        }
+      }
+
+      bmpWidth = newW;
+      bmpHeight = newH;
+      pixelSize = newP;
+      pixels = next;
+
+      widthInput.value = String(bmpWidth);
+      heightInput.value = String(bmpHeight);
+      pixelSizeInput.value = String(pixelSize);
+
+      canvas.width = bmpWidth * pixelSize;
+      canvas.height = bmpHeight * pixelSize;
+      render();
+      setStatus(`Canvas ${bmpWidth}x${bmpHeight}`);
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let y = 0; y < bmpHeight; y++) {
+        for (let x = 0; x < bmpWidth; x++) {
+          ctx.fillStyle = pixels[y][x] ? '#111827' : '#ffffff';
+          ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          ctx.strokeStyle = '#d1d5db';
+          ctx.strokeRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+        }
+      }
+    }
+
+    function pointToPixel(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      const x = Math.floor((clientX - rect.left) / pixelSize);
+      const y = Math.floor((clientY - rect.top) / pixelSize);
+      if (x < 0 || y < 0 || x >= bmpWidth || y >= bmpHeight) return null;
+      return { x, y };
+    }
+
+    function paintAt(clientX, clientY) {
+      const p = pointToPixel(clientX, clientY);
+      if (!p) return;
+      pixels[p.y][p.x] = drawValue;
+      render();
+    }
+
+    function formatHex(bytes) {
+      const out = [];
+      for (let i = 0; i < bytes.length; i++) {
+        out.push(`0x${bytes[i].toString(16).toUpperCase().padStart(2, '0')}`);
+      }
+      return out;
+    }
+
+    function sanitizeName(name) {
+      const cleaned = String(name || '').trim().replace(/[^A-Za-z0-9_]/g, '_');
+      if (!cleaned) return 'MY_BITMAP';
+      return /^[A-Za-z_]/.test(cleaned) ? cleaned : `_${cleaned}`;
+    }
+
+    function exportRowMajorMsb() {
+      const rowBytes = Math.ceil(bmpWidth / 8);
+      const bytes = [];
+      for (let y = 0; y < bmpHeight; y++) {
+        for (let b = 0; b < rowBytes; b++) {
+          let v = 0;
+          for (let bit = 0; bit < 8; bit++) {
+            const x = b * 8 + bit;
+            if (x < bmpWidth && pixels[y][x]) {
+              v |= (1 << (7 - bit));
+            }
+          }
+          bytes.push(v);
+        }
+      }
+      return bytes;
+    }
+
+    function exportSsd1306Page() {
+      const pages = Math.ceil(bmpHeight / 8);
+      const bytes = [];
+      for (let page = 0; page < pages; page++) {
+        for (let x = 0; x < bmpWidth; x++) {
+          let v = 0;
+          for (let bit = 0; bit < 8; bit++) {
+            const y = page * 8 + bit;
+            if (y < bmpHeight && pixels[y][x]) {
+              v |= (1 << bit);
+            }
+          }
+          bytes.push(v);
+        }
+      }
+      return bytes;
+    }
+
+    function wrapBytes(hexBytes) {
+      const lines = [];
+      const perLine = 12;
+      for (let i = 0; i < hexBytes.length; i += perLine) {
+        lines.push('    ' + hexBytes.slice(i, i + perLine).join(', '));
+      }
+      return lines.join(',\n');
+    }
+
+    function doExport() {
+      const name = sanitizeName(nameInput.value);
+      const format = formatSelect.value;
+      const bytes = format === 'ssd1306-page' ? exportSsd1306Page() : exportRowMajorMsb();
+      const rowBytes = Math.ceil(bmpWidth / 8);
+      const hex = formatHex(bytes);
+
+      const c = [
+        `/* ${bmpWidth}x${bmpHeight} ${format === 'ssd1306-page' ? 'SSD1306 page format' : 'row-major MSB format'} */`,
+        `static const uint8_t ${name}[] = {`,
+        wrapBytes(hex),
+        '};',
+        '',
+        `/* For GFX_Bitmap (row-major MSB expected): width=${bmpWidth}, height=${bmpHeight}, row_bytes=${rowBytes}, size=${bytes.length} */`,
+        `/* GFX_Bitmap ${name}_BMP = { ${name}, sizeof(${name}), ${bmpWidth}U, ${bmpHeight}U }; */`
+      ].join('\n');
+
+      output.value = c;
+      setStatus(`Exported ${bytes.length} bytes (${format}).`);
+    }
+
+    async function copyOutput() {
+      if (!output.value.trim()) doExport();
+      try {
+        await navigator.clipboard.writeText(output.value);
+        setStatus('Copied to clipboard.');
+      } catch (_) {
+        output.select();
+        document.execCommand('copy');
+        setStatus('Copied (fallback).');
+      }
+    }
+
+    canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      drawValue = (e.button === 2) ? 0 : 1;
+      paintAt(e.clientX, e.clientY);
+    });
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      paintAt(e.clientX, e.clientY);
+    });
+    window.addEventListener('mouseup', () => { isDrawing = false; });
+
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      isDrawing = true;
+      drawValue = 1;
+      const t = e.touches[0];
+      paintAt(t.clientX, t.clientY);
+    }, { passive: false });
+
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if (!isDrawing) return;
+      const t = e.touches[0];
+      paintAt(t.clientX, t.clientY);
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => { isDrawing = false; });
+
+    resizeBtn.addEventListener('click', () => applySize(true));
+    clearBtn.addEventListener('click', () => {
+      pixels = createPixels(bmpWidth, bmpHeight, 0);
+      render();
+      setStatus('Cleared.');
+    });
+    invertBtn.addEventListener('click', () => {
+      for (let y = 0; y < bmpHeight; y++) {
+        for (let x = 0; x < bmpWidth; x++) {
+          pixels[y][x] = pixels[y][x] ? 0 : 1;
+        }
+      }
+      render();
+      setStatus('Inverted.');
+    });
+    fillBtn.addEventListener('click', () => {
+      pixels = createPixels(bmpWidth, bmpHeight, 1);
+      render();
+      setStatus('Filled.');
+    });
+
+    exportBtn.addEventListener('click', doExport);
+    copyBtn.addEventListener('click', copyOutput);
+
+    pixels = createPixels(bmpWidth, bmpHeight, 0);
+    applySize(false);
+  </script>
+</body>
+</html>
