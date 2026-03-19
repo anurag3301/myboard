@@ -56,11 +56,23 @@ void SystemClock_Config(void){
 
 
 void setup_gpio(){
-    GPIO_InitTypeDef init = {.Pin = GPIO_PIN_13 | GPIO_PIN_14,
+    uint32_t led_pins = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | 
+                        GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
+
+    GPIO_InitTypeDef led_init = {.Pin = led_pins,
+                             .Mode = GPIO_MODE_OUTPUT_PP,
+                             .Pull = GPIO_NOPULL,
+                             .Speed = GPIO_SPEED_FREQ_LOW};
+
+    HAL_GPIO_Init(GPIOA, &led_init);
+    HAL_GPIO_WritePin(GPIOA, led_pins, GPIO_PIN_RESET);
+
+
+    GPIO_InitTypeDef button_init = {.Pin = GPIO_PIN_13 | GPIO_PIN_14,
                              .Mode = GPIO_MODE_IT_FALLING,
                              .Pull = GPIO_PULLUP,
                              .Speed = GPIO_SPEED_FREQ_LOW};
-    HAL_GPIO_Init(GPIOC, &init);
+    HAL_GPIO_Init(GPIOC, &button_init);
 
     HAL_NVIC_SetPriority(EXTI15_10_IRQn, 2, 0);
     HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
@@ -146,10 +158,10 @@ void setup_spi(){
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_14;
-    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    // GPIO_InitStruct.Pin = GPIO_PIN_14;
+    // GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    // GPIO_InitStruct.Pull = GPIO_NOPULL;
+    // HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     hspi.Instance = SPI2;
     hspi.Init.Mode = SPI_MODE_MASTER;

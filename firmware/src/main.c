@@ -25,35 +25,35 @@ int main(){
     setup_spi();
     display_init();
 
-    static const uint8_t hi_bitmap_data[] = {
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC6, 0x00, 0xC6, 0x00, 0xC6, 0x60,
-        0xC6, 0x60, 0xFE, 0x00, 0xFE, 0x60, 0xC6, 0x60, 0xC6, 0x60, 0xC6, 0x60,
-        0xC6, 0x60, 0xC6, 0x60, 0x00, 0x00, 0x00, 0x00
-    };
+    uint8_t num = 0;
 
-    GFX_Bitmap hi_bitmap = { hi_bitmap_data, sizeof(hi_bitmap_data), 16U, 16U };
+    char numbuf[20];
 
-    int x = 60, y = 25;
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+
 
     while(1){
+        GPIOA->BSRR = (0xFF << 16);
+        GPIOA->BSRR = num;
         GFX_Clear(&gfx, 0U);
-        GFX_DrawRectBorder(&gfx, 10, 8, 108, 48, 2U, 1U);
+        GFX_DrawRectBorder(&gfx, 0, 0, 120, 60, 5U, 1U);
 
-        if (EventQueue_Pop(&event) != 0U){
-            if (event == EVENT_LEFT){
-                x -= 10;
-            }
-            else if (event == EVENT_RIGHT){
-                x += 10;
-            }
-        }
+        // if (EventQueue_Pop(&event) != 0U){
+        //     if (event == EVENT_LEFT){
+        //         x -= 10;
+        //     }
+        //     else if (event == EVENT_RIGHT){
+        //         x += 10;
+        //     }
+        // }
 
-        GFX_DrawBitmap(&gfx, &hi_bitmap, x, y);
+        snprintf(numbuf, 20, "%ud", num++);
+        GFX_DrawStr(&gfx, numbuf, 35, 20, 20, 1);
         
         if (GFX_Present(&gfx) != 0){
             Error_Handler();
         }
 
-        HAL_Delay(100);
+        HAL_Delay(50);
     }
 }
